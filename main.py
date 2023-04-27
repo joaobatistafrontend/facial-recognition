@@ -2,25 +2,27 @@ import cv2
 import mediapipe as mp
 
 
-webcam = cv2.VideoCapture(0)
-recognition = mp.solutions.face_detection
-recognize = recognition.FaceDetection()
-desing = mp.solutions.drawing_utils
+def FacialRecognition():
+    webcam = cv2.VideoCapture(0)
+    recognition = mp.solutions.face_detection
+    recognize = recognition.FaceDetection()
+    desing = mp.solutions.drawing_utils
 
-while True:
-    checker, frame = webcam.read()
-    if not checker:
-        break
+    while True:
+        checker, frame = webcam.read()
+        if not checker:
+            break
 
-    list_face = recognize.process(frame)
+        list_face = recognize.process(frame)
 
-    if list_face.detections:
-        for face in list_face.detections:
-            desing.draw_detection(frame,face)
+        if list_face.detections:
+            for face in list_face.detections:
+                desing.draw_detection(frame, face)
 
-    cv2.imshow('facial recognition',frame)
+        cv2.imshow('facial recognition', frame)
 
-    if cv2.waitKey(5) == 27:
-        break
+        if cv2.waitKey(5) == 27:
+            break
 
-webcam.release()
+    webcam.release()
+FacialRecognition()
